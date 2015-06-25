@@ -85,7 +85,7 @@ angular.module("arcgis-map")
                             registry.byId("zoomnext").disabled = navToolbar.isLastExtent();
                         }
 
-                    })
+                    });
                 });
             },
             templateUrl:"../src/template/navigationWidget.html"

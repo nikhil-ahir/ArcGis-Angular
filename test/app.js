@@ -2,10 +2,11 @@
  * Created by yogeshp on 6/12/2015.
  */
 
-angular.module("myApp",["layout-containers","arcgis-map","dndLists"])
-    .controller('MapController', function ($scope) {
+angular.module("myApp",["layout-containers","arcgis-map","dndLists","ngRoute"])
+    .controller('MapController', function ($scope,$route, $routeParams, $location) {
         //Widget selection and order
         $scope.widgetConfigs = {
+            "allowedTypes":["left","right"],
             "leftNavItems":[
                 {
                     "name": "Layers",
@@ -30,28 +31,6 @@ angular.module("myApp",["layout-containers","arcgis-map","dndLists"])
                     "id":"directionWidget",
                     "iconClass": "mdi-maps-navigation green-text accent-2",
                     selected:false
-                },
-                {
-                    "name": "Chart",
-                    "id": "chartWidget",
-                    "iconClass": "mdi-av-equalizer blue-text accent-2"
-
-                },
-                {
-                    "name": "Credit",
-                    "id": "creditWidget",
-                    "iconClass": "mdi-social-school amber-text darken-3"
-
-                },
-                {
-                    "name": "Drawing",
-                    "id": "drawingWidget",
-                    "iconClass": "mdi-editor-format-paint green-text accent-2"
-                },
-                {
-                    "name": "Search",
-                    "id": "searchWidget",
-                    "iconClass": "small mdi-action-search green-text accent-2"
                 }
             ],
             "rightNavItems":[
@@ -79,19 +58,16 @@ angular.module("myApp",["layout-containers","arcgis-map","dndLists"])
                 }
             ]
         };
+        $scope.drawingselected = false;
 
+        $scope.collapsedRight = true;
 
-        $scope.leftSelectionState = new Array();
+        $scope.contentClosed = false;
 
-        $scope.isLeftItemSelected = function(itemId){
-            //var itemSelected = false;
-            for (var item in $scope.widgetConfigs.leftNavItems){
-                if(item.id == itemId) {
-                    return item.selected;
-                }
-            }
+        $scope.rightContentClosed = true;
 
-            return false;
+        $scope.selectSearch = function(){
+            $scope.collapsedRight = false;
         };
 
         $scope.selectLeft = function(itemId){
@@ -105,26 +81,6 @@ angular.module("myApp",["layout-containers","arcgis-map","dndLists"])
             }
 
             selectedItem.selected = true;
-        }
-        $scope.basemapselected = false;
-        $scope.legendselected = false;
-        $scope.layerseleted = true;
-
-
-        //Right Panels
-        $scope.directionselected = false;
-        $scope.drawingselected = false;
-
-        $scope.collapsedRight = true;
-
-        $scope.contentClosed = false;
-
-        $scope.rightContentClosed = true;
-
-
-
-        $scope.selectSearch = function(){
-            $scope.collapsedRight = false;
         };
 
         $scope.closeContent = function(){
@@ -132,19 +88,19 @@ angular.module("myApp",["layout-containers","arcgis-map","dndLists"])
             $scope.basemapselected = false;
             $scope.legendselected = false;
             $scope.layerseleted = false;
-        }
+        };
 
         $scope.closeRightContent = function(){
             $scope.rightContentClosed = true;
-        }
+        };
 
         $scope.openRightContent = function(){
             $scope.rightContentClosed = false;
-        }
+        };
 
         $scope.openContent = function(){
             $scope.contentClosed = false;
-        }
+        };
         $scope.map = {
             center: {
                 lng: -96.53,
@@ -168,126 +124,35 @@ angular.module("myApp",["layout-containers","arcgis-map","dndLists"])
         };
         $scope.hideleft = false;
 
-        $scope.selectBaseMap = function(){
-            $scope.contentClosed = false;
-            $scope.basemapselected = true;
-            $scope.legendselected = false;
-            $scope.layerseleted = false;
-        };
-
-        $scope.selectLegend = function(){
-            $scope.contentClosed = false;
-            $scope.basemapselected = false;
-            $scope.legendselected = true;
-            $scope.layerseleted = false;
-        };
-
-        $scope.selectLayers = function(){
-            $scope.contentClosed = false;
-            $scope.basemapselected = false;
-            $scope.legendselected = false;
-            $scope.layerseleted = true;
-        };
-
-        $scope.selectDirection = function(){
-            $scope.openRightContent();
-            $scope.directionselected = true;
-            $scope.drawingselected = false;
-        }
-
         $scope.selectDrawing = function(){
             $scope.openRightContent();
             $scope.directionselected = false;
             $scope.drawingselected = true;
-        }
-        $scope.leftWidgets =
-            {
-                label: "LeftW",
-                allowedTypes: ['left','right'],
-                max: 6,
-                people: [
-                    {
-                        "name": "Layers",
-                        "iconClass": "mdi-maps-layers red-text accent-2",
-                        "id":"layerWidget",
-                        selected:true,
-                        "type":"left"
-                    },
-                    {
-                        "name": "Legend",
-                        "iconClass": "mdi-maps-map purple-text accent-2",
-                        "id":"legendWidget",
-                        selected:false,
-                        "type":"left"
-                    }
-                ]
-            };
-        $scope.rightWidgets =
-        {
-            label: "RightW",
-            allowedTypes: ['right','left'],
-            max: 6,
-            people: [
-
-            ]
         };
-        $scope.lists = [
-            {
-                label: "widgets",
-                allowedTypes: ['left','right'],
-                max: 4,
-                people: [
 
-                    {
-                        "name": "Basemap",
-                        "iconClass": "mdi-maps-satellite green-text accent-2",
-                        "id":"basemapWidget",
-                        selected:false,
-                        "type":"left"
-                    },
-                    {
-                        "name": "Direction",
-                        "id":"directionWidget",
-                        "iconClass": "mdi-maps-navigation green-text accent-2",
-                        selected:false,
-                        "type":"right"
-                    },
-                    {
-                        "name": "Chart",
-                        "id": "chartWidget",
-                        "iconClass": "mdi-av-equalizer blue-text accent-2",
-                        "type":"right"
+    })
+    .controller('WidgetSettingController', function($scope, $routeParams) {
 
-                    },
-                    {
-                        "name": "Credit",
-                        "id": "creditWidget",
-                        "iconClass": "mdi-social-school amber-text darken-3",
-                        "type":"left"
+    })
+    .controller('DashboardController', function($scope, $routeParams) {
 
-                    },
-                    {
-                        "name": "Drawing",
-                        "id": "drawingWidget",
-                        "iconClass": "mdi-editor-format-paint green-text accent-2",
-                        "type":"left"
-                    },
-                    {
-                        "name": "Search",
-                        "id": "searchWidget",
-                        "iconClass": "small mdi-action-search green-text accent-2",
-                        "type":"right"
-                    }
 
-                ]
-            }
-        ];
 
-        // Model to JSON for demo purpose
-        $scope.$watch('lists', function(lists) {
-            $scope.modelAsJson = angular.toJson(lists, true);
-        }, true);
+    })
+    .config(function($routeProvider, $locationProvider) {
+        $routeProvider
+            .when('/dashboard', {
+                templateUrl: 'dashboard.html',
+                controller: 'DashboardController',
 
-    });
+            })
+            .when('/settings', {
+                templateUrl: 'settings.html',
+                controller: 'WidgetSettingController'
+            });
+
+        // configure html5 to get links working on jsfiddle
+        //$locationProvider.html5Mode(true);
+    });;
 
 

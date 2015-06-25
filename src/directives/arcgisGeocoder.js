@@ -23,7 +23,7 @@ angular.module("arcgis-map")
                         },"geoCoderWidgetId");
 
                         geoCoderWdgt.startup();
-                    })
+                    });
 
                 });
             },

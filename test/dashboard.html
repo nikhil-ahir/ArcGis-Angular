@@ -1,0 +1,94 @@
+<ul id="slide-out" class="right side-nav">
+    <li class="right-item"><a ng-click="selectDirection()"><i style="float:left;"
+                                                                                        class="small mdi-maps-navigation green-text accent-2"></i><span
+            class="right-item-label">Direction</span></a></li>
+    <li class="right-item"><a><i style="float:left;"
+                                                           class="small mdi-action-search green-text accent-2"></i><span
+            class="right-item-label">Search</span></a></li>
+    <li class="right-item"><a ng-click="selectDrawing()"><i style="float:left;"
+                                                            class="small mdi-editor-format-paint green-text accent-2"></i><span
+            class="right-item-label">Drawing</span></a></li>
+    <li class="right-item"><a href="javascript:void(0)"><i style="float:left;"
+                                                           class="small mdi-maps-directions green-text accent-2"></i><span
+            class="right-item-label">Measurement</span></a></li>
+</ul>
+<viewport ng-controller="DashboardController">
+
+    <border-layout border="false">
+
+        <west size="55" collapsed="false">
+            <div class="io-nav">
+                <div class="io-navigation" style="height:100%;">
+
+                    <a ng-repeat= "item in widgetConfigs.leftNavItems"
+                       ng-class="item.selected ? 'io-navigation-item active waves-effect' :'io-navigation-item waves-effect'"
+                       ng-click="selectLeft(item.id)">
+                        <i class="small {{item.iconClass}}"></i>
+
+                    </a>
+                </div>
+            </div>
+        </west>
+        <east size="350" split="true" collapsed="{{rightContentClosed}}">
+            <!--<content-panel header-label="Direction" on-close="closeRightContent()" ng-show="directionselected">
+                <arcgis-directions mapid="myMapId"></arcgis-directions>
+            </content-panel>-->
+            <content-panel header-label="Drawing" on-close="closeRightContent()" ng-show="drawingselected">
+                <arcgis-draw-graphics mapid="myMapId" id="drawGraphics"></arcgis-draw-graphics>
+            </content-panel>
+        </east>
+        <center-portion>
+            <border-layout border="false">
+                <west size="350" split="true" collapsed="{{contentClosed}}">
+
+                    <!--<content-panel header-label="Legend" on-close="closeContent()" ng-if="basemapselected">
+                        <arcgis-basemap-gallery mapid="myMapId" id="basemapid"></arcgis-basemap-gallery>
+                    </content-panel>
+                    <content-panel header-label="Legend" on-close="closeContent()" ng-if="legendselected">
+                        <arcgis-legend mapid="myMapId" id="legendId"></arcgis-legend>
+                    </content-panel>-->
+
+                    <content-panel ng-repeat= "item in widgetConfigs.leftNavItems" header-label="{{item.name}}" on-close="closeContent()" ng-show="item.selected">
+                        <layer-widget mapid="myMapId" id="layerWidget" ng-if="item.id == 'layerWidget'"></layer-widget>
+                        <arcgis-basemap-gallery mapid="myMapId" id="basemapid" ng-if="item.id == 'basemapWidget'"></arcgis-basemap-gallery>
+                        <arcgis-legend mapid="myMapId" id="legendId" ng-if="item.id == 'legendWidget'"></arcgis-legend>
+                        <arcgis-directions mapid="myMapId" ng-if="item.id == 'directionWidget'"></arcgis-directions>
+                    </content-panel>
+
+
+
+                </west>
+
+                <center-portion>
+
+                    <arcgis-map layers="map.layers" mapid="myMapId" center="map.center" zoom="map.zoom"
+                                basemap="{{map.basemap}}"
+                                options="{{map.options}}" scalebar="true" overviewmap="true">
+
+
+                        <arcgis-dynamic-map-service-layer
+                                url="http://54.221.225.213/arcgis/rest/services/QuantumPlatform/Ambit_View/MapServer"
+                                name="Ambit_View">
+
+                        </arcgis-dynamic-map-service-layer>
+
+                        <arcgis-dynamic-map-service-layer
+                                url="http://54.221.225.213/arcgis/rest/services/QuantumPlatform/Voice/MapServer"
+                                name="Voice">
+
+                        </arcgis-dynamic-map-service-layer>
+
+                        <!-- <arcgis-fetaure-layer url="http://54.221.225.213/arcgis/rest/services/QuantumPlatform/Facilities/FeatureServer/2"></arcgis-fetaure-layer>-->
+                        <arcgis-dynamic-map-service-layer name="Call"
+                                                          url="http://54.221.225.213/arcgis/rest/services/QuantumPlatform/Issues/MapServer"></arcgis-dynamic-map-service-layer>
+
+                        <arcgis-dynamic-map-service-layer name="Vector Data"
+                                                          url="http://54.221.225.213/arcgis/rest/services/QuantumPlatform/VectorData/MapServer"></arcgis-dynamic-map-service-layer>
+                    </arcgis-map>
+                </center-portion>
+            </border-layout>
+        </center-portion>
+
+    </border-layout>
+
+</viewport>

@@ -13,17 +13,24 @@ angular.module("arcgis-map")
             // define an interface for working with this directive
             controller: function ($scope, $element, $attrs) {
                 var mappromise = mapRegistry.get($scope.mapid);
+                var basemapGallery = null;
                 ///$element.attr("id","legendId")
                 mappromise.then(function(map){
                     require([
                         'esri/dijit/BasemapGallery'], function (BasemapGallery) {
-                        var basemapGallery = new BasemapGallery({
+                        basemapGallery = new BasemapGallery({
                             map: map
                         },"basemapGalleryId");
 
                         basemapGallery.startup();
-                    })
+                    });
 
+                });
+
+                $scope.$on('$destroy', function(){
+                    if(basemapGallery){
+                        basemapGallery.destroy();
+                    }
                 });
             },
             templateUrl:"../src/template/basemapGallery.html"

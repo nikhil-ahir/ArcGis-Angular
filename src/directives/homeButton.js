@@ -24,7 +24,7 @@ angular.module("arcgis-map")
                             visible: true
                         }, "homeWidgetId");
                         homeButton.startup();
-                    })
+                    });
 
                 });
             },

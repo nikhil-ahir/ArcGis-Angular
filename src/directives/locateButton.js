@@ -21,7 +21,7 @@ angular.module("arcgis-map")
                         },"geoLocateId");
 
                         geoLocate.startup();
-                    })
+                    });
 
                 });
             },

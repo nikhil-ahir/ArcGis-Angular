@@ -278,6 +278,9 @@ angular.module("layout-containers").directive("west",["$document","$timeout",fun
                 transcludedContent = clone;
             });
 
+            $timeout(function(){
+                layout();
+            },0);
             function layout(){
                 westCtrl.top = 0;
                 westCtrl.left = 0;
@@ -382,6 +385,11 @@ angular.module("layout-containers").directive("east",["$document","$timeout",fun
                 eastCtrl.splitNeeded = true;
             }
 
+            if(eastCtrl.collapsed == "true"){
+                $element.css("display","none");
+                borderCtrl.eastSize = 0;
+                borderCtrl.eastCollapsed = true;
+            }
             var parentHeight = 0;
 
             //If parent height is changed, layout again
@@ -397,11 +405,15 @@ angular.module("layout-containers").directive("east",["$document","$timeout",fun
             $scope.$watch("eastCtrl.collapsed",function(newValue){
                 if(newValue == "true"){
                     $element.css("display","none");
+                    borderCtrl.eastCollapsed = true;
                     borderCtrl.eastSize = 0;
+
 
                 }else if(newValue == "false"){
                     $element.css("display","block");
+                    borderCtrl.eastCollapsed = false;
                     borderCtrl.eastSize = eastCtrl.size;
+
 
                 }
 
@@ -569,9 +581,10 @@ angular.module("layout-containers").directive("centerPortion",["$document","$tim
                 transcludedContent = clone;
             });
 
+
             function layout(){
                 var eastSize = 0;
-                if(borderCtrl.eastSize !== undefined){
+                if(borderCtrl.eastSize !== undefined && !borderCtrl.eastCollapsed){
                     eastSize = borderCtrl.eastSize;
                 }
                 var westSize = 0;

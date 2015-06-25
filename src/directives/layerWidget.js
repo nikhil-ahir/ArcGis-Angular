@@ -23,7 +23,7 @@ angular.module("arcgis-map")
                 $scope.availableHeight = ($window.innerHeight - 200)+"px";
                 $scope.searchFilterQuery = null;
                 $scope.stoploading = false;
-                $scope.layers = mapRegistry.getLayers($scope.mapid);
+                $scope.layers = mapRegistry.getLayers("myMapId");
                 $scope.$watch("layers",function(newarray,oldarray){
                     $scope.layers = newarray;
 

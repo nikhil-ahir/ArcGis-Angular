@@ -1,15 +1,16 @@
 {
-  "name": "AngularJSMapWidget",
-  "version": "0.0.0",
-  "homepage": "https://github.com/sujata-patne/AngularJSMapWidget",
+  "name": "ArcGis-Angular",
+  "version": "0.0.9-beta",
+  "homepage": "https://github.com/yogesh-patel/ArcGis-Angular.git",
   "authors": [
-    "sujata-patne <sujata.patne@gmail.com>"
+    "yogesh-patel <yogesh.patel@synerzip.com>"
   ],
-  "description": "Angular JS Map Widget For ArcGIS",
+  "description": "Angular directives (material design guidline) to build Esri application in material design",
   "main": "app.js",
   "keywords": [
     "AngularJS",
-    "Map",
+    "arcGIS",
+    "Esri Map",
     "Widget"
   ],
   "license": "MIT",
@@ -22,6 +23,7 @@
     "angular": "~1.4.0",
     "requirejs": "~2.1.18",
     "materialize": "~0.97.0",
-    "angular-desktop-containers": "yogesh-patel/angular-desktop-containers"
+    "angular-desktop-containers": "yogesh-patel/angular-desktop-containers",
+    "angular-drag-and-drop-lists": "marceljuenemann/angular-drag-and-drop-lists#~1.2.0"
   }
 }

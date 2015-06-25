@@ -55,7 +55,7 @@ angular.module("arcgis-map")
                                 var tool = evt.target.id.toLowerCase();
                                 map.disableMapNavigation();
                                 tb.activate(tool);
-                            }
+                            };
                             function initToolbar() {
                                 tb = new Draw(map);
                                 tb.on("draw-end", addGraphic);
@@ -93,7 +93,7 @@ angular.module("arcgis-map")
 
                                 map.graphics.add(new Graphic(evt.geometry, symbol));
                             }
-                    })
+                    });
                 });
             },
             templateUrl:"../src/template/drawGraphicsWidget.html"

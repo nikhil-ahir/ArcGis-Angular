@@ -30,6 +30,14 @@ angular.module("arcgis-map",[])
                 });
 
                 return function(){
+                    if (registry[name]){
+                        registry[name].promise.then(function(map){
+                            map.destroy();
+                        });
+                    }
+                    if(mapLayers[name]){
+                        delete mapLayers[name];
+                    }
                     delete registry[name];
                 };
             },

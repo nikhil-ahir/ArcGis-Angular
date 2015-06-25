@@ -12,7 +12,7 @@ angular.module("arcgis-map")
 
             // define an interface for working with this directive
             controller: function ($scope, $element, $attrs) {
-
+                console.log("Cretaed..........................................");
             },
             // now we can link our directive to the scope, but we can also add it to the map..
             link: function (scope, element, attrs, controllers) {

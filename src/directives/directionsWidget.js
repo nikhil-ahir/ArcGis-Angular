@@ -7,11 +7,12 @@ angular.module("arcgis-map")
         return {
             restrict:'E',
             scope:{
-                mapid:"@"
+
             },
             // define an interface for working with this directive
             controller: function ($scope, $element, $attrs) {
-                var mappromise = mapRegistry.get($scope.mapid);
+                var mappromise = mapRegistry.get($attrs.mapid);
+                var directions = null;
                 mappromise.then(function(map) {
                     require([
                         "esri/dijit/Directions"
@@ -26,14 +27,20 @@ angular.module("arcgis-map")
                                 sourceCountry: "USA"
                             }
                         };
-                        var directions = new Directions({
+                        directions = new Directions({
                              map: map,
                              routeTaskUrl: "http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Network/USA/NAServer/Route",
                              showClearButton: true,
                              geocoderOptions: geocoderOptions
                          },"directionId");
                          directions.startup();
-                     })
+                     });
+                });
+
+                $scope.$on('$destroy', function(){
+                    if(directions){
+                        directions.destroy();
+                    }
                 });
             },
             templateUrl:"../src/template/directionsWidget.html"

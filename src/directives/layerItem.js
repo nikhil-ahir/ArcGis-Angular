@@ -13,24 +13,24 @@ angular.module("arcgis-map")
                 $scope.hide_content = true;
                 $scope.setContentToggle = function () {
                     $scope.hide_content = !$scope.hide_content;
-                },
-                    $scope.isVisible = function () {
-                        if ($scope.hidden) {
-                            return !$scope.hidden;
-                        }
-                        return $scope.layer.layer.visibleAtMapScale;
-                    };
+                };
+                $scope.isVisible = function () {
+                    if ($scope.hidden) {
+                        return !$scope.hidden;
+                    }
+                    return $scope.layer.layer.visibleAtMapScale;
+                };
 
                 $scope.isHidden = function () {
                     if ($scope.hidden) {
                         return $scope.hidden;
                     }
                     return !$scope.layer.layer.visibleAtMapScale;
-                }
+                };
 
-                $scope.$watch("hidden", function (newvalue, oldvalue) {
-
-                });
+                //$scope.$watch("hidden", function (newvalue, oldvalue) {
+                //
+                //});
 
                 $scope.layer.layer.on("scale-visibility-change", function (event) {
                     console.log("Layer Name:" + $scope.layer.layer.name + " Visible:" + $scope.layer.layer.visibleAtMapScale);
@@ -46,9 +46,9 @@ angular.module("arcgis-map")
                         } else {
                             $scope.layer.layer.hide();
                         }
-                    }else{
-                       var layer= $scope.layer.layer.getMap().getLayer(id);
-                        if(layer){
+                    } else {
+                        var layer = $scope.layer.layer.getMap().getLayer(id);
+                        if (layer) {
                             if ($scope.selected) {
                                 layer.show();
                             } else {
@@ -61,7 +61,7 @@ angular.module("arcgis-map")
 
                 $scope.setExtent = function () {
                     $scope.layer.layer.getMap().setExtent($scope.layer.layer.fullExtent);
-                }
+                };
 
                 $scope.layerInfos = function () {
                     return $scope.layer.layer.layerInfos;
@@ -69,6 +69,6 @@ angular.module("arcgis-map")
             },
             // template:"<div ng-class='{hiddenLayer: hidden , availabelLayer: isVisible(), hiddenLayer:isHidden()}'>{{layer.name}}</div>"
             templateUrl: "../src/template/layerItem.html"
-        }
+        };
     }])
 ;

@@ -21,7 +21,7 @@ angular.module("arcgis-map")
                             map: map
                         },"searchWidgetId");
                         s.startup();
-                    })
+                    });
 
                 });
             },

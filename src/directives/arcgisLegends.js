@@ -13,17 +13,24 @@ angular.module("arcgis-map")
             // define an interface for working with this directive
             controller: function ($scope, $element, $attrs) {
                 var mappromise = mapRegistry.get($scope.mapid);
+                var legendWdgt = null;
                 ///$element.attr("id","legendId")
                 mappromise.then(function(map){
                     require([
                         'esri/dijit/Legend'], function (Legend) {
-                        var legendWdgt = new Legend({
+                        legendWdgt = new Legend({
                             map: map
                         },"legendWidgetId");
 
                         legendWdgt.startup();
-                    })
+                    });
 
+                });
+
+                $scope.$on('$destroy', function(){
+                    if(legendWdgt){
+                        legendWdgt.destroy();
+                    }
                 });
             },
             templateUrl:"../src/template/legendWidget.html"

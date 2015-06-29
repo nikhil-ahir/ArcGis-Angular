@@ -1,7 +1,8 @@
 /**
  * Created by sujatah on 6/17/2015.
  */
-
+var scripts = document.getElementsByTagName("script")
+var currentScriptPath = scripts[scripts.length-1].src;
 angular.module("arcgis-map")
     .directive("arcgisDirections", ["$q","mapRegistry", function ($q,mapRegistry) {
         return {
@@ -43,7 +44,8 @@ angular.module("arcgis-map")
                     }
                 });
             },
-            templateUrl:"../src/template/directionsWidget.html"
+            templateUrl:currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1)
+            + 'templates/directionsWidget.html'
 
         };
     }]);

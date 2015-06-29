@@ -20,21 +20,11 @@ angular.module("arcgis-map")
 
 
             compile: function ($element, $attrs) {
-                //if(!$attrs.mapid){
-                //    $attrs.mapid = "default_map_id";
-                //}
-                //if($attrs.mapid){
-                //    if($document[0].getElementById($attrs.mapid)){
-                //        throw new Error('ID already exists!');
-                //    }
-                //    //$element.parent().css( "height", ($window.innerHeight - 64)+"px" );
-                //
-                  $element.append("<div style='width:{{width}}px;height:{{height}}px;' id='myMapId'></div>");
-                //}
+
+                $element.append("<div style='width:{{width}}px;height:{{height}}px;' id='myMapId'></div>");
 
                 return function ($scope, $element, $attrs,controllers) {
-                    //$scope.width = 924;
-                    //$scope.height = 727;
+
                     $scope.$watch(function ($scope) {
                         return $element.parent().width();
                     }, function (newvalue) {
@@ -54,10 +44,9 @@ angular.module("arcgis-map")
                      * Deferred will be resolved when the map created
                      */
                     var mapDeferred = $q.defer();
-                    // var mapLoadedDeffred = $q.defer();
+
 
                     // add this map to the registry
-                    //if ($scope.mapid) {
                     var deregister = mapRegistry._register("myMapId", mapDeferred);
 
                     // remove this from the registry when the scope is destroyed
@@ -162,8 +151,8 @@ angular.module("arcgis-map")
                             require(["esri/dijit/OverviewMap"], function (OverviewMap) {
                                 var overviewMapDijit = new OverviewMap({
                                     map: map,
-                                    attachTo: "bottom-right",
-                                    visible: true
+                                    attachTo: "top-right",
+                                    visible: false
 
                                 });
                                 overviewMapDijit.startup();
@@ -193,12 +182,7 @@ angular.module("arcgis-map")
                         /**
                          * Set watch for zoom
                          */
-                        /*$scope.$watch('zoom', function(newZoom, oldZoom) {
-                         if (newZoom !== oldZoom) {
-                         /* If zoom value is changed, update zoom   */
-                        //map.setZoom(newZoom);
-                        /* }
-                         });*/
+
                         /**
                          * Set watch for center
                          */
@@ -240,17 +224,12 @@ angular.module("arcgis-map")
 
                         //How to rid it
                         $scope.$on("centerChangeEvent", function (event, size) {
-                            //$timeout(function () {
                             map.resize();
-                            // },0);
 
-                            //console.log("H:"+size.height);
                         });
                     });
 
-                    //$transclude(function(clone){
-                    //
-                    //});
+
 
                 };
 
@@ -266,9 +245,7 @@ angular.module("arcgis-map")
 
                 // adds the layer, returns the promise that will be resolved with the result of map.addLayer
                 this.addLayer = function (url, layerName) {
-                    //return this.getMap().then(function(map) {
-                    //    return map.addLayer(layer);
-                    //});
+
                     mapRegistry.addLayer("myMapId", url);
                 };
 

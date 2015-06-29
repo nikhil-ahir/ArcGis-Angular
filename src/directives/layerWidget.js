@@ -1,6 +1,10 @@
 /**
  * Created by synerzip on 15/06/15.
  */
+
+var scripts = document.getElementsByTagName("script")
+var currentScriptPath = scripts[scripts.length-1].src;
+
 angular.module("arcgis-map")
     .directive("layerWidget", ["$q", "mapRegistry","$window", function ($q, mapRegistry,$window) {
         return {
@@ -8,19 +12,16 @@ angular.module("arcgis-map")
             scope: {
                 mapid: "@"
             },
-            //templateUrl: "layerTemplate.html",
-            //template: '<div style="border:1px solid blue;width:100%;height:100%">' +
-            //'<div style="border-bottom:1px solid blue;width:100%;height:30px;" ng-repeat="layer in layers"><layer-item layer="layer"></layer-item></div>' +
-            //'</div>',
-            templateUrl:"../src/template/layerWidget.html",
+
+            templateUrl:currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1)
+            + 'templates/layerWidget.html',
+
             compile:function($element,$attrs){
-                //$element.parent().css( "height", ($window.innerHeight - 64)+"px" );
-                //$element.parent().css( "overflow", "auto" );
+
 
 
             },
             controller: function ($scope) {
-                $scope.availableHeight = ($window.innerHeight - 200)+"px";
                 $scope.searchFilterQuery = null;
                 $scope.stoploading = false;
                 $scope.layers = mapRegistry.getLayers("myMapId");
@@ -31,8 +32,7 @@ angular.module("arcgis-map")
 
 
                 $scope.$on("layerAdded",function(event,layer){
-                    //if(event.mapid == $scope.mapid){
-                        //$scope.stoploading = false;
+
                     $scope.stoploading = false;
                     $scope.$apply(function(){
                         if(!$scope.layers){
@@ -43,9 +43,6 @@ angular.module("arcgis-map")
                         $scope.stoploading = true;
                     });
 
-                        //$scope.layers = mapRegistry.getLayers($scope.mapid);
-                        //$scope.stoploading = true;
-                    //}
                 });
 
                 $scope.layerFilter = function (item) {

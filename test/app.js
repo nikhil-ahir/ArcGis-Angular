@@ -3,6 +3,62 @@
  */
 
 angular.module("myApp",["layout-containers","arcgis-map","dndLists","ngRoute"])
+    .directive("chartPanel",function(){
+        return {
+            restrict:"E",
+            templateUrl:"chart.html",
+            link:function($scope){
+
+                $('#pieChartId').highcharts({
+                    chart: {
+                        type: 'pie',
+                        options3d: {
+                            enabled: true,
+                            alpha: 45,
+                            beta: 0
+                        }
+                    },
+                    title: {
+                        text: ''
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            depth: 35,
+                            dataLabels: {
+                                enabled: false,
+                                format: '{point.name}'
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Browser share',
+                        data: [
+                            ['Firefox',   45.0],
+                            ['IE',       26.8],
+                            {
+                                name: 'Chrome',
+                                y: 12.8,
+                                sliced: true,
+                                selected: true
+                            },
+                            ['Safari',    8.5],
+                            ['Opera',     6.2],
+                            ['Others',   0.7]
+                        ]
+                    }]
+                });
+            }
+        };
+    })
     .controller('MapController', function ($scope,$route, $routeParams, $location) {
         //Widget selection and order
         $scope.widgetConfigs = {
@@ -112,7 +168,7 @@ angular.module("myApp",["layout-containers","arcgis-map","dndLists","ngRoute"])
             options: {
                 navigationMode: 'classic', //css-transforms
                 sliderOrientation: 'horizontal',
-                sliderPosition: 'top-right',
+                sliderPosition: 'top-left',
                 fadeOnZoom: false,
                 resizeDelay: 500
             }
@@ -153,6 +209,6 @@ angular.module("myApp",["layout-containers","arcgis-map","dndLists","ngRoute"])
 
         // configure html5 to get links working on jsfiddle
         //$locationProvider.html5Mode(true);
-    });;
+    });
 
 

@@ -21,8 +21,8 @@
                 <div class="io-navigation" style="height:100%;">
 
                     <a ng-repeat= "item in widgetConfigs.leftNavItems"
-                       ng-class="item.selected ? 'io-navigation-item active waves-effect' :'io-navigation-item waves-effect'"
-                       ng-click="selectLeft(item.id)">
+                       ng-class="item.selected ? 'io-navigation-item active waves-effect tooltipped' :'io-navigation-item waves-effect tooltipped'"
+                       data-position="right" data-delay="50" data-tooltip="I am tooltip" ng-click="selectLeft(item.id)">
                         <i class="small {{item.iconClass}}"></i>
 
                     </a>
@@ -53,6 +53,7 @@
                         <arcgis-basemap-gallery mapid="myMapId" id="basemapid" ng-if="item.id == 'basemapWidget'"></arcgis-basemap-gallery>
                         <arcgis-legend mapid="myMapId" id="legendId" ng-if="item.id == 'legendWidget'"></arcgis-legend>
                         <arcgis-directions mapid="myMapId" ng-if="item.id == 'directionWidget'"></arcgis-directions>
+                        <chart-panel ng-if="item.id == 'chartWidget'"></chart-panel>
                     </content-panel>
 
 

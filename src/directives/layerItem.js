@@ -1,6 +1,8 @@
 /**
  * Created by synerzip on 15/06/15.
  */
+var scripts = document.getElementsByTagName("script")
+var currentScriptPath = scripts[scripts.length-1].src;
 angular.module("arcgis-map")
     .directive("layerItem", [function () {
         return {
@@ -67,8 +69,9 @@ angular.module("arcgis-map")
                     return $scope.layer.layer.layerInfos;
                 };
             },
-            // template:"<div ng-class='{hiddenLayer: hidden , availabelLayer: isVisible(), hiddenLayer:isHidden()}'>{{layer.name}}</div>"
-            templateUrl: "../src/template/layerItem.html"
+            templateUrl:currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1)
+            + 'templates/layerItem.html'
+
         };
     }])
 ;

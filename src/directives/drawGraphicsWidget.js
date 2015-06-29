@@ -1,7 +1,8 @@
 /**
  * Created by sujatah on 6/17/2015.
  */
-
+var scripts = document.getElementsByTagName("script")
+var currentScriptPath = scripts[scripts.length-1].src;
 angular.module("arcgis-map")
     .directive("arcgisDrawGraphics", ["$q","mapRegistry","$document","$timeout", function ($q,mapRegistry,$document,$timeout) {
         return {
@@ -60,19 +61,7 @@ angular.module("arcgis-map")
                                 tb = new Draw(map);
                                 tb.on("draw-end", addGraphic);
 
-                                // event delegation so a click handler is not
-                                // needed for each individual button
 
-                                /*on($document[0].getElementById("info"), "click", function(evt) {
-                                    console.log( evt.target.id)
-                                    if ( evt.target.id === "info" ) {
-                                        return;
-                                    }
-                                    var tool = evt.target.id.toLowerCase();
-                                    map.disableMapNavigation();
-                                    tb.activate(tool);
-
-                                });*/
                             }
 
                             function addGraphic(evt) {
@@ -96,7 +85,9 @@ angular.module("arcgis-map")
                     });
                 });
             },
-            templateUrl:"../src/template/drawGraphicsWidget.html"
+            templateUrl:currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1)
+            + 'templates/drawGraphicsWidget.html'
+
 
         };
     }]);

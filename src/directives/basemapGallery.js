@@ -1,7 +1,8 @@
 /**
  * Created by synerzip on 13/06/15.
  */
-
+var scripts = document.getElementsByTagName("script")
+var currentScriptPath = scripts[scripts.length-1].src;
 angular.module("arcgis-map")
     .directive("arcgisBasemapGallery", ["$q","mapRegistry", function ($q,mapRegistry) {
         return {
@@ -33,7 +34,9 @@ angular.module("arcgis-map")
                     }
                 });
             },
-            templateUrl:"../src/template/basemapGallery.html"
+            templateUrl:currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1)
+            + 'templates/basemapGallery.html'
+
 
         };
     }]);/**

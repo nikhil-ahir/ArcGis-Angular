@@ -22,7 +22,7 @@
 </head>
 <body ng-controller="MapController">
 
-<!--<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
     <a class="btn-floating btn-large red">
         <i class="large mdi-editor-mode-edit"></i>
     </a>
@@ -33,7 +33,7 @@
         <li><a class="btn-floating blue"><i class="large mdi-editor-attach-file"></i></a></li>
 
     </ul>
-</div>-->
+</div>
 
 <ul id="dropdown1" class="dropdown-content">
     <li><a href="#dashboard">Dashboard</a></li>
@@ -87,6 +87,8 @@
 
 <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
 <script src="../bower_components/materialize/dist/js/materialize.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-3d.js"></script>
 <script src="http://js.arcgis.com/3.13/"></script>
 <script src="../bower_components/requirejs/require.js"></script>
 <script src="../bower_components/angular/angular.js"></script>
@@ -107,6 +109,7 @@
 <script src="../src/directives/drawGraphicsWidget.js"></script>
 
 <script src="./lib/angular-desktop-containers.js"></script>
+
 
 <script>
     $(document).ready(function () {

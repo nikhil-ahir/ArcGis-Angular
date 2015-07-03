@@ -114,7 +114,7 @@ angular.module("myApp",["layout-containers","arcgis-map","dndLists","ngRoute"])
                 }
             ]
         };
-        $scope.drawingselected = false;
+        //$scope.drawingselected = false;
 
         $scope.collapsedRight = true;
 
@@ -182,8 +182,11 @@ angular.module("myApp",["layout-containers","arcgis-map","dndLists","ngRoute"])
 
         $scope.selectDrawing = function(){
             $scope.openRightContent();
-            $scope.directionselected = false;
-            $scope.drawingselected = true;
+        };
+
+        $scope.selectRightWidget = function(item){
+            $scope.openRightContent();
+            $scope.selectedRightWidgetId = item.id;
         };
 
     })

@@ -28,7 +28,8 @@
     </a>
     <ul>
 
-        <li><a class="btn-floating yellow darken-1 tooltipped" data-position="left" data-delay="50" data-tooltip="I am tooltip"><i class="large mdi-editor-format-quote"></i></a></li>
+        <li><a class="btn-floating yellow darken-1 tooltipped" data-position="left" data-delay="50"
+               data-tooltip="I am tooltip"><i class="large mdi-editor-format-quote"></i></a></li>
         <li><a class="btn-floating green"><i class="large mdi-editor-publish"></i></a></li>
         <li><a class="btn-floating blue"><i class="large mdi-editor-attach-file"></i></a></li>
 
@@ -56,7 +57,7 @@
             <ul class="right hide-on-med-and-down">
                 <li><a class="dropdown-button waves-effect" href="javascript:void(0)" data-activates="dropdown1"
                        data-beloworigin="true">Yogesh Patel<i class="mdi-navigation-arrow-drop-down right"></i></a></li>
-                <li><a  class="dropdown-button waves-effect"><i class="large mdi-content-mail"></i></a></li>
+                <li><a class="dropdown-button waves-effect"><i class="large mdi-content-mail"></i></a></li>
                 <li><a><i class="button-collapse  mdi-navigation-more-vert" data-activates="slide-out"></i></a>
                 </li>
 
@@ -65,10 +66,15 @@
     </nav>
 </div>
 <ul id="slide-out" class="right side-nav">
-    <li class="right-item"><a ng-click="selectDirection()"><i style="float:left;"
-                                                              class="small mdi-maps-navigation green-text accent-2"></i><span
-            class="right-item-label">Direction</span></a></li>
-    <li class="right-item"><a><i style="float:left;"
+
+    <li ng-repeat="item in widgetConfigs.rightNavItems" class="right-item">
+        <a ng-click="selectRightWidget(item)">
+            <i style="float:left;" class="small {{item.iconClass}}"></i>
+            <span class="right-item-label">{{item.name}}</span>
+        </a>
+    </li>
+
+    <!--<li class="right-item"><a><i style="float:left;"
                                  class="small mdi-action-search green-text accent-2"></i><span
             class="right-item-label">Search</span></a></li>
     <li class="right-item"><a ng-click="selectDrawing()"><i style="float:left;"
@@ -76,9 +82,8 @@
             class="right-item-label">Drawing</span></a></li>
     <li class="right-item"><a><i style="float:left;"
                                  class="small mdi-maps-directions green-text accent-2"></i><span
-            class="right-item-label">Measurement</span></a></li>
+            class="right-item-label">Measurement</span></a></li>-->
 </ul>
-
 
 
 <ng-view>

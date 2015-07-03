@@ -1,4 +1,4 @@
-<ul id="slide-out" class="right side-nav">
+<!--<ul id="slide-out" class="right side-nav">
     <li class="right-item"><a ng-click="selectDirection()"><i style="float:left;"
                                                                                         class="small mdi-maps-navigation green-text accent-2"></i><span
             class="right-item-label">Direction</span></a></li>
@@ -11,7 +11,7 @@
     <li class="right-item"><a href="javascript:void(0)"><i style="float:left;"
                                                            class="small mdi-maps-directions green-text accent-2"></i><span
             class="right-item-label">Measurement</span></a></li>
-</ul>
+</ul>-->
 <viewport ng-controller="DashboardController">
 
     <border-layout border="false">
@@ -30,11 +30,14 @@
             </div>
         </west>
         <east size="350" split="true" collapsed="{{rightContentClosed}}">
-            <!--<content-panel header-label="Direction" on-close="closeRightContent()" ng-show="directionselected">
-                <arcgis-directions mapid="myMapId"></arcgis-directions>
-            </content-panel>-->
-            <content-panel header-label="Drawing" on-close="closeRightContent()" ng-show="drawingselected">
-                <arcgis-draw-graphics mapid="myMapId" id="drawGraphics"></arcgis-draw-graphics>
+            <content-panel ng-repeat= "item in widgetConfigs.rightNavItems"
+                           header-label="{{item.name}}" on-close="closeRightContent()" ng-show="selectedRightWidgetId == item.id">
+                <layer-widget mapid="myMapId" ng-if="item.id == 'layerWidget'"></layer-widget>
+                <arcgis-basemap-gallery mapid="myMapId"  ng-if="item.id == 'basemapWidget'"></arcgis-basemap-gallery>
+                <arcgis-legend mapid="myMapId" ng-if="item.id == 'legendWidget'"></arcgis-legend>
+                <arcgis-directions mapid="myMapId" ng-if="item.id == 'directionWidget'"></arcgis-directions>
+                <chart-panel ng-if="item.id == 'chartWidget'"></chart-panel>
+                <arcgis-draw-graphics mapid="myMapId"  ng-if="item.id == 'drawingWidget'"></arcgis-draw-graphics>
             </content-panel>
         </east>
         <center-portion>

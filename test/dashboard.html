@@ -1,17 +1,4 @@
-<!--<ul id="slide-out" class="right side-nav">
-    <li class="right-item"><a ng-click="selectDirection()"><i style="float:left;"
-                                                                                        class="small mdi-maps-navigation green-text accent-2"></i><span
-            class="right-item-label">Direction</span></a></li>
-    <li class="right-item"><a><i style="float:left;"
-                                                           class="small mdi-action-search green-text accent-2"></i><span
-            class="right-item-label">Search</span></a></li>
-    <li class="right-item"><a ng-click="selectDrawing()"><i style="float:left;"
-                                                            class="small mdi-editor-format-paint green-text accent-2"></i><span
-            class="right-item-label">Drawing</span></a></li>
-    <li class="right-item"><a href="javascript:void(0)"><i style="float:left;"
-                                                           class="small mdi-maps-directions green-text accent-2"></i><span
-            class="right-item-label">Measurement</span></a></li>
-</ul>-->
+
 <viewport ng-controller="DashboardController">
 
     <border-layout border="false">
@@ -57,6 +44,7 @@
                         <arcgis-legend mapid="myMapId" id="legendId" ng-if="item.id == 'legendWidget'"></arcgis-legend>
                         <arcgis-directions mapid="myMapId" ng-if="item.id == 'directionWidget'"></arcgis-directions>
                         <chart-panel ng-if="item.id == 'chartWidget'"></chart-panel>
+                        <arcgis-draw-graphics mapid="myMapId"  ng-if="item.id == 'drawingWidget'"></arcgis-draw-graphics>
                     </content-panel>
 
 
